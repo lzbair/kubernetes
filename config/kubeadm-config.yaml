@@ -1,0 +1,6 @@
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+kubernetesVersion: 1.16.3                          #<-- Use the word stable for newest version
+controlPlaneEndpoint: "local-master.k8s.com:6443"   #<-- Use the node alias not the IP5
+networking:
+  podSubnet: 192.168.0.0/16                        #<-- Match the IP range from the Calico config fil

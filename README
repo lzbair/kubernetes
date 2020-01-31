@@ -1,0 +1,23 @@
+# Prerequisite: compatibele version of "kubelet", "kubeadm" and "kubectl" are installed.  
+
+# Create k8s master:  
+
+kubeadm init --config=config/kubeadm-config.yaml --upload-certs  
+
+# Master components config (e.g api-server, scheduler, etcd ..) will be generated under /etc/kubernetes/  
+
+
+# To start using your cluster, you need to configure your k8s client (i.e. kubectl):  
+
+  mkdir -p $HOME/.kube  
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config  
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config  
+
+# You should deploy a pod network to the cluster. In our case, we will use Calico (see here for other optios; https://kubernetes.io/docs/concepts/cluster-administration/addons/)  
+
+kubectl apply -f config/rbac-kdd.yaml  
+
+kubectl apply -f work/k8s/prod-cluster/config/calico.yaml  
+
+Run:  kubectl get nodes  
+Run :  kubectl describe node 'name of your master node'  
